@@ -1,0 +1,300 @@
+.hero-section {
+  min-height: 560px;
+  background: #494d55;
+  position: relative;
+}
+
+.hero-section .figure-holder-wrapper {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-section .figure-holder {
+  position: relative;
+  height: 560px;
+  width: 100%;
+}
+
+.hero-section .figure-holder .figure-image {
+  position: absolute;
+  bottom: 0;
+  right: 15px;
+  z-index: 10;
+}
+
+.hero-carousel {
+  height: 560px;
+  color: #022663 ;
+}
+
+.hero-carousel .carousel-inner .carousel-item {
+  height: 560px;
+  background-position: center center;
+}
+.hero-carousel .carousell-inner .carousel-item {
+  height: 560px;
+  background-position: center center;
+}
+
+.hero-carousel .carousel-inner {
+  background-image: url("../../assets/images/graineasy-grain.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 560px;
+  background-position: center center;
+  background-size: cover;
+  width: 100%;
+}
+.hero-carousel .carousel-inner .item-1 {
+  background-image: url("../../assets/images/graineasy-grain.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+.hero-carousel .carousel-inner .heading {
+  font-size: 30px;
+  line-height: 1.4;
+  font-weight: bold;
+  margin-top: 180px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: rgba(99,122,54,1);
+  border-color: rgba(99,122,54,1);
+  opacity: 1;
+}
+
+.hero-carousel .carousel-inner .heading .butge {
+  height: 50px;;
+}
+
+.hero-carousel .carousel-inner .heading .graintxt {
+  color: #89C33E;
+}
+
+.hero-carousel .carousel-inner .heading .eazytxt{
+  color: #022663 ;
+}
+
+.hero-carousel .carousel-inner .textcontainer {
+  margin-top: 0px;
+  margin-left: 70%;
+}
+
+
+.hero-carousel .carousel-inner .intro + .btn {
+  margin-top: 15px;
+}
+
+/* ======= About Section ======= */
+.about-section {
+  padding-top: 90px;
+  padding-bottom: 60px;
+  background-color: #022663;
+}
+
+.about-section .section-title {
+  margin: 0;
+  margin-bottom: 15px;
+  font-size: 36px;
+  font-weight: 300;
+}
+
+.about-section .intro {
+  color: #a2a6af;
+  font-size: 16px;
+  max-width: 760px;
+  margin: 0 auto;
+  margin-bottom: 60px;
+}
+
+.about-section .items-wrapper {
+  margin-bottom: 60px;
+}
+
+.about-section .items-wrapper .figure-holder {
+  min-height: 170px;
+  margin: 5px;
+  vertical-align: bottom;
+}
+
+.about-section img {
+  object-fit: contain;
+  vertical-align: bottom;
+  height: 100px;
+  position: relative;
+}
+
+.about-section .items-wrapper .item-inner {
+  padding: 30px;
+}
+
+.about-section .items-wrapper .item-title {
+  color: #FFED00;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.about-section .items-wrapper .item-desc {
+  color: #616670;
+}
+
+
+
+/* ======= Contact Section ======= */
+.contact-section {
+  padding-top: 150px;
+  padding-bottom: 150px;
+  color: #fff;
+  background-image: url("../../assets/images/graineasy-contactus.png");
+  background-size: cover;
+  width: 100%;
+  height: auto;
+}
+
+.contact-section .section-title {
+  margin: 0;
+  margin-bottom: 15px;
+  font-size: 36px;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+.contact-content {
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 60px;
+  color: #022663 ;
+}
+
+.contact-section .call {
+  background-color: rgba(99,122,54,1);
+  border-color: rgba(99,122,54,1);
+  color: #FFED00;
+  opacity: 1;
+}
+
+.contact-section .phone {
+  height: 30px;
+  vertical-align: middle;
+}
+.contact-section .btc {
+  height: 30px;
+  vertical-align: middle;
+}
+
+@media (max-width: 767.98px) {
+  .navbar-collapse {
+    border-top: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    width: 100%;
+    left: 0;
+    top: 60px;
+    position: absolute;
+    background: rgba(99,122,54,0.9);;
+    z-index: 40;
+  }
+  .header.header-scrolled .main-nav .nav .nav-link.active {
+    color: #fff;
+    border: none;
+  }
+  .main-nav .navbar-collapse .nav-item {
+    margin-right: 0;
+  }
+  .main-nav .navbar-collapse .nav-item a {
+    text-align: center;
+  }
+  .hero-section .figure-image {
+    width: 300px;
+  }
+  .hero-carousel .carousel-inner .heading {
+    font-size: 26px;
+  }
+  .hero-carousel .carousel-inner .item-content-inner {
+    padding-top: 100px;
+  }
+  .hero-section .figure-holder .figure-image {
+    width: inherit;
+    bottom: 0;
+    top: inherit;
+    right: inherit;
+    left: 15px;
+    max-width: 320px;
+  }
+
+  .hero-carousel {
+    height: 660px;
+  }
+  .hero-section .carousel-inner {
+    height: 660px;
+  }
+  .hero-carousel .carousel-inner .item {
+    height: 660px;
+  }
+  .hero-carousel .carousel-inner .textcontainer {
+    margin-top: 0px;
+    margin-left: 0px;
+    text-align: center;
+  }
+  .hero-carousel .carousel-inner .textcontainer .heading {
+    text-align: center;
+  }
+  .hero-carousel .carousel-inner .textcontainer .intro {
+    text-align: center;
+  }
+
+
+}
+
+@media (min-width: 768px) {
+  .feature-nav {
+    text-align: left;
+    padding-left: 30px;
+  }
+  .hero-section .figure-holder .figure-image {
+    width: 360px;
+    bottom: inherit;
+    top: 130px;
+  }
+  .hero-carousel .carousel-inner .item-content-inner {
+    max-width: 300px;
+    padding-top: 120px;
+  }
+}
+
+@media (min-width: 992px) {
+  .main-nav .nav .nav-item {
+    margin-right: 25px;
+  }
+  .feature-nav {
+    margin-top: 30px;
+    padding-left: 15px;
+  }
+  .hero-section .figure-holder .figure-image {
+    width: 420px;
+    bottom: inherit;
+    top: 130px;
+  }
+  .hero-carousel .carousel-inner .item-content-inner {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero-section .figure-holder .figure-image {
+    width: 570px;
+    bottom: 0;
+    top: inherit;
+  }
+}

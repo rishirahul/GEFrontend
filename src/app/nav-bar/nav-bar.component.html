@@ -1,0 +1,31 @@
+<!-- ******HEADER****** -->
+<header id="header" class="header">
+  <div class="container">
+      <h1 class="logo">
+          <a class="scrollto" (click)="scrollToElement(hero)">
+              <span class="logo-icon-wrapper"><img class="logo-icon" src="assets/images/graineasy-icon.png" alt="icon"></span>
+              <!--- span class="text"><span class="highlight">APP</span>KIT</span--></a>
+      </h1><!--//logo-->
+      <nav class="main-nav navbar-expand-md float-right navbar-inverse" role="navigation">
+
+          <button class="navbar-toggler"
+            type="button" data-toggle="iscollapse" data-target="#navbar-collapse"
+            (click)="toggleCollapsed()" [attr.aria-expanded]="!isCollapsed"
+            aria-controls="collapseNavBarLink">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button><!--//nav-toggle-->
+
+          <div id="navbar-collapse" class="navbar-collapse collapse" id="collapseNavBarLink" [ngbCollapse]="isCollapsed">
+              <ul class="nav navbar-nav">
+                  <li class="nav-item"><a class="active nav-link scrollto h4" (click)="scrollToElement(hero)">Home</a></li>
+                  <li class="nav-item"><a class="nav-link scrollto h4" (click)="scrollToElement(buyer)">Buyers</a></li>
+                  <li class="nav-item"><a class="nav-link scrollto h4" (click)="scrollToElement(seller)">Sellers</a></li>
+                  <li class="nav-item"><a class="nav-link scrollto h4" (click)="scrollToElement(contact)">Contact Us</a></li>
+              </ul><!--//nav-->
+          </div><!--//navabr-collapse-->
+      </nav><!--//main-nav-->
+  </div><!--//container-->
+</header><!--//header-->
