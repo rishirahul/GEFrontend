@@ -7,12 +7,14 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ListingsComponent } from './listings/listings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    ListingsComponent
   ],
   imports: [
     BrowserModule,
