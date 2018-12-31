@@ -8,6 +8,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ListingsComponent } from './listings/listings.component';
+import { FragmentPolyfillModule } from './fragment-polyfill.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,10 @@ import { ListingsComponent } from './listings/listings.component';
   imports: [
     BrowserModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FragmentPolyfillModule.forRoot({
+      smooth: true
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
