@@ -14,13 +14,15 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { DataService } from './services/data.service';
 import { ListingService } from './services/listing.service';
+import { ListingCardComponent } from './listing-card/listing-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
     LandingPageComponent,
-    ListingsComponent
+    ListingsComponent,
+    ListingCardComponent
   ],
   imports: [
     BrowserModule,

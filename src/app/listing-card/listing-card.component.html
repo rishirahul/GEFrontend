@@ -1,0 +1,10 @@
+<div *ngIf="listing.name.name" class="card ItemCard">
+  <img *ngIf="listing.image" class="card-img-top ItemCardImage" [src]="listing.image" alt="{{ listing.name }}">
+  <div class="card-body">
+    <h4 class="card-title">{{ listing.name.name }} | {{ listing.category.name }} </h4>
+    <p class="card-text"> Rs. {{ listing.qty }} Per Kg</p>
+  </div>
+  <div class="card-footer">
+    <a href="#" class="btn btn-primary btn-block">Add to Cart</a>
+  </div>
+</div>
