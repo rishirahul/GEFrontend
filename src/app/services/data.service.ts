@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { AppError } from '../common/app-error';
@@ -6,13 +6,13 @@ import { NotFoundError } from '../common/not-found-error';
 import { catchError } from 'rxjs/operators';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+// @Injectable({
+//   providedIn: 'root'
+// })
 export class DataService {
 
   constructor(private url: string, private http: HttpClient) { }
-
+  //constructor() { }
   getAll() {
     return this.http.get(this.url);
   }

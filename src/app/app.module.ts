@@ -12,8 +12,8 @@ import { FragmentPolyfillModule } from './fragment-polyfill.module';
 import { AppErrorHandler } from './common/app-error-handler';
 import { HttpClientModule } from '@angular/common/http';
 
-import { DataService } from './services/data.service';
 import { ListingService } from './services/listing.service';
+import { DataService } from './services/data.service';
 import { ListingCardComponent } from './listing-card/listing-card.component';
 
 @NgModule({
@@ -33,8 +33,9 @@ import { ListingCardComponent } from './listing-card/listing-card.component';
       smooth: true
     })
   ],
-  providers: [DataService,
+  providers: [
     ListingService,
+    // DataService,
     {provide: ErrorHandler, useClass: AppErrorHandler}
   ],
   bootstrap: [AppComponent]

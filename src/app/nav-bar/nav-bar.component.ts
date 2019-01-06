@@ -50,7 +50,7 @@ export class NavBarComponent implements OnInit {
     $element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
   }
 
-  private isSectionActive(section: string): boolean {
+  isSectionActive(section: string): boolean {
     return section === this.activeSiteSection;
 }
 }
