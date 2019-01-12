@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import {AuthService} from '../services/auth.service';
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -9,12 +11,18 @@ export class NavBarComponent implements OnInit {
   public isCollapsed = true;
   public isMainPage = true;
   private activeSiteSection: string;
-  constructor( private router: Router) {
+  private currentUser: any;
+  constructor(private auth: AuthService, private router: Router) {
         router.events.subscribe((event) => {
             if (event instanceof NavigationEnd ) {
                 this.SiteURLActiveCheck(event);
             }
         });
+        this.auth.currentUser.subscribe(x => this.currentUser = x);
+  }
+
+  get isAdmin() {
+    return this.currentUser && this.currentUser.role === 'Role.Admin';
   }
 
   private SiteURLActiveCheck(event: NavigationEnd): void {
@@ -36,9 +44,10 @@ export class NavBarComponent implements OnInit {
     } else {
         this.activeSiteSection = '';
     }
-}
+  }
 
   ngOnInit() {
+    console.log(this.auth.getToken());
   }
 
   toggleCollapsed(): void {
@@ -52,5 +61,17 @@ export class NavBarComponent implements OnInit {
 
   isSectionActive(section: string): boolean {
     return section === this.activeSiteSection;
-}
+  }
+
+  logout() {
+    this.auth.logout();
+  }
+
+  loggedIn() {
+    return this.auth.loggedIn();
+  }
+
+  loggedOut() {
+    return !this.auth.loggedIn();
+  }
 }

@@ -12,17 +12,21 @@ import { catchError } from 'rxjs/operators';
 export class DataService {
 
   constructor(private url: string, private http: HttpClient) { }
-  //constructor() { }
+
   getAll() {
     return this.http.get(this.url);
   }
 
+  get(resourceId) {
+    return this.http.get(this.url + '/' + resourceId);
+  }
+
   create(resource) {
-    return this.http.post(this.url, JSON.stringify(resource));
+    return this.http.post<any>(this.url, resource);
   }
 
   upadate(resource) {
-    return this.http.put(this.url + '/' + resource.id, JSON.stringify(resource)).pipe(catchError(this.handleError));
+    return this.http.put(this.url + '/' + resource.id, resource).pipe(catchError(this.handleError));
   }
 
   deletePost(resource) {

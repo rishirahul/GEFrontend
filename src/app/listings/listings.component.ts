@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ListingService} from '../services/listing.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -7,9 +8,10 @@ import {ListingService} from '../services/listing.service';
   templateUrl: './listings.component.html',
   styleUrls: ['./listings.component.scss']
 })
+
 export class ListingsComponent implements OnInit {
   listings: any;
-  constructor(private service: ListingService) { }
+  constructor(private service: ListingService, private router: Router) { }
 
   ngOnInit() {
     this.service.getAll()
@@ -17,9 +19,9 @@ export class ListingsComponent implements OnInit {
       this.listings = response;
       console.log(this.listings);
     }, (error: Response) => {
+      this.router.navigate(['/errorpage']);
       if (error.status === 400) {
         alert(' expected error, post already deleted');
-        //this.form.setErrors(error.json());
       }
       console.log(error);
     });

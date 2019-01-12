@@ -3,6 +3,7 @@ import {ItemName} from './item-name';
 import {Category} from './category';
 
 export interface Listing {
+  _id: string;
   name: ItemName;
   image: string;
   category: Category;
