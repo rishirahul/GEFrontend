@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
         Validators.maxLength(10), Validators.pattern('^[0-9]*$'),
         FormValidators.cannotContainSpace],
         FormValidators.shouldBeUnique),
-      'password' : new FormControl(Validators.required, Validators.minLength(8)),
+      'password' : new FormControl('', [Validators.required, Validators.minLength(8)]),
       'pan' : new FormControl(),
       'GST' : new FormControl('', [Validators.required]),
       'address' : new FormControl('', [Validators.required]),
