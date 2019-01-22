@@ -76,6 +76,9 @@
           type="text"
           class="form-control"
           placeholder="GSTIN Number">
+          <div class="alert alert-danger" *ngIf="GST.touched && GST.invalid">
+            <div *ngIf="GST.errors.required"> GST is required </div>
+          </div>
       </div>
       <div class="form-group">
         <label for="address">Address</label>
@@ -85,6 +88,9 @@
           type="text"
           class="form-control"
           placeholder="Your Address">
+          <div class="alert alert-danger" *ngIf="address.touched && address.invalid">
+            <div *ngIf="address.errors.required"> Address is required </div>
+          </div>
       </div>
       <div class="form-group">
         <label for="city">City:</label>
