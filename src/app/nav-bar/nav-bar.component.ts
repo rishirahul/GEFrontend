@@ -22,12 +22,10 @@ export class NavBarComponent implements OnInit {
   }
 
   get isAdmin() {
-    return this.currentUser && this.currentUser.role === 'Role.Admin';
+    return this.currentUser && this.currentUser.isAdmin;
   }
 
   private SiteURLActiveCheck(event: NavigationEnd): void {
-    console.log(event.url);
-    console.log(this.isMainPage);
     if (event.url.indexOf('main') !== -1) {
       this.isMainPage = true;
     } else {
@@ -47,7 +45,6 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.auth.getToken());
   }
 
   toggleCollapsed(): void {
@@ -55,7 +52,6 @@ export class NavBarComponent implements OnInit {
   }
 
   scrollToElement($element): void {
-    console.log($element);
     $element.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
   }
 

@@ -25,7 +25,6 @@ export class AuthService {
   // }
 
   login(phone: string, password: string) {
-    console.log(phone, password);
     return this.http
       .post<any>(this.url, {
         phone: '+91' + phone,

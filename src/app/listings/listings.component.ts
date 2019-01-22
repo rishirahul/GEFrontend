@@ -17,7 +17,6 @@ export class ListingsComponent implements OnInit {
     this.service.getAll()
     .subscribe(response => {
       this.listings = response;
-      console.log(this.listings);
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {

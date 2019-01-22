@@ -4,8 +4,10 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ListingsComponent } from './listings/listings.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { LoginComponent } from './login/login.component';
+import { OrderNowComponent } from './order-now/order-now.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 
 const routes: Routes = [
@@ -31,7 +33,17 @@ const routes: Routes = [
   },
   {
     path: 'product/:id',
-    component: ProductDetailComponent
+    component: ProductDetailComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['admin', 'buyer']}
+  },
+  {
+    path: 'orderNow/:id',
+    component: OrderNowComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['admin', 'buyer']
+    }
   },
   {
     path: '**',

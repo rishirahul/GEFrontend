@@ -8,9 +8,11 @@ export interface Listing {
   image: string;
   category: Category;
   qty: number;
+  price: number;
   moisture: number;
   grainCount: number;
   grade: string;
   sampleNo: string;
   city: City;
+  seller: any;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {ListingService} from '../services/listing.service';
 import { Listing } from './../model/listing';
@@ -7,11 +7,12 @@ import { OrderService } from '../services/order.service';
 import { AppError } from '../common/app-error';
 
 @Component({
-  selector: 'app-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  selector: 'app-order-now',
+  templateUrl: './order-now.component.html',
+  styleUrls: ['./order-now.component.scss']
 })
-export class ProductDetailComponent implements OnInit {
+export class OrderNowComponent implements OnInit {
+
   listing: Listing;
   address: any;
   userid: any;
@@ -39,7 +40,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   getProduct(id) {
-  this.listingService.get(id)
+    this.listingService.get(id)
     .subscribe(response => {
       this.listing = response as Listing;
     }, (error: Response) => {
@@ -51,15 +52,16 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  order() {
+  order(f) {
     const OrderData = {
-      quantity: 0,
-      cost: 0,
+      quantity: f.quantity,
+      cost: f.quantity * this.listing.price,
       itemId: this.listing._id,
       addressId: this.address._id,
       buyerId: this.userid,
       sellerId: this.listing.seller._id,
-      placedTime: Date.now().toString()
+      placedTime: Date.now().toString(),
+      status: 'new'
 
     };
     console.log(OrderData);

@@ -26,6 +26,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { OrderNowComponent } from './order-now/order-now.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     RegistrationComponent,
     LoginComponent,
     ErrorPageComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    OrderNowComponent
   ],
   imports: [
     BrowserModule,

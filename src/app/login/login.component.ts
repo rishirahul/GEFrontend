@@ -33,11 +33,9 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.form.value);
     this.auth.login(this.form.value.account.phone, this.form.value.account.password)
     .subscribe(response => {
       this.loginData = response;
-      console.log(this.loginData);
       this.router.navigate(['/products']);
     }, (error: AppError) => {
       if (error.originalError.status === 400) {

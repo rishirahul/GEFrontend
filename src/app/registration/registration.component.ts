@@ -26,7 +26,8 @@ export class RegistrationComponent implements OnInit {
         FormValidators.shouldBeUnique),
       'password' : new FormControl(Validators.required, Validators.minLength(8)),
       'pan' : new FormControl(),
-      'address' : new FormControl(),
+      'GST' : new FormControl(Validators.required),
+      'address' : new FormControl(Validators.required),
       'city' : new FormControl(Validators.required),
       'state' : new FormControl(Validators.required),
       'pin' : new FormControl(Validators.required)
@@ -88,16 +89,17 @@ export class RegistrationComponent implements OnInit {
       email:  this.form.value.account.email,
       password:   this.form.value.account.password,
       pan:    this.form.value.account.pan,
+      GST:    this.form.value.account.GST,
       address:    this.form.value.account.address,
       cityId:   this.form.value.account.city,
       stateId:  this.form.value.account.state,
       pin:    this.form.value.account.pin,
+      isBuyer: 'true'
     };
 
     this.user.create(formData)
     .subscribe(response => {
-      this.loginData = response;
-      console.log(this.loginData);
+      this.loginData = response;;
       alert('Registration successful, Please login');
       this.router.navigate(['/login']);
     }, (error: AppError) => {
