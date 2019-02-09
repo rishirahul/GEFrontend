@@ -27,6 +27,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { OrderNowComponent } from './order-now/order-now.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { AllOrdersComponent } from './all-orders/all-orders.component';
+import { OrderCardComponent } from './order-card/order-card.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { OrderNowComponent } from './order-now/order-now.component';
     LoginComponent,
     ErrorPageComponent,
     ProductDetailComponent,
-    OrderNowComponent
+    OrderNowComponent,
+    MyOrdersComponent,
+    AllOrdersComponent,
+    OrderCardComponent
   ],
   imports: [
     BrowserModule,

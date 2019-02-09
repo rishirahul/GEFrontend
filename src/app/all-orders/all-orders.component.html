@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="container listingOffsetTextColor">
+        <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">orderId</th>
+                <th scope="col">Seller</th>
+                <th scope="col">Buyer</th>
+                <th scope="col">Item</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Cost</th>
+                <th scope="col">status</th>
+                <th scope="col">update</th>
+              </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let order of orders">
+              <tr>
+                <th scope="row">{{order._id}}</th>
+                <td>{{order.seller.name}}</td>
+                <td>{{order.buyer.name}}</td>
+                <td>{{order.item.name.name}}</td>
+                <td>{{order.quantity}} kgs</td>
+                <td>Rs. {{order.cost}}</td>
+                <td>
+                  <select id="status" [(ngModel)]="order.status">
+                    <option *ngFor="let state of states" [ngValue]="state" [selected]="state == order.status"> {{ state }}</option>
+                  </select></td>
+                <td><button (click)="updateOrder(order)">update</button></td>
+              </tr>
+            </ng-container>
+              </tbody>
+              </table>
+
+          <!-- <div class="ItemCardContainer">
+            <app-order-card [order]="order"> </app-order-card>
+          </div> -->
+
+    </div>
+  </div>

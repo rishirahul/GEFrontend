@@ -5,6 +5,8 @@ import { ListingsComponent } from './listings/listings.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { LoginComponent } from './login/login.component';
 import { OrderNowComponent } from './order-now/order-now.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { AllOrdersComponent } from './all-orders/all-orders.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { AuthGuard } from './_guards/auth.guard';
@@ -43,6 +45,22 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: ['admin', 'buyer']
+    }
+  },
+  {
+    path: 'myOrders',
+    component: MyOrdersComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['admin', 'buyer']
+    }
+  },
+  {
+    path: 'allOrders',
+    component: AllOrdersComponent,
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['admin']
     }
   },
   {

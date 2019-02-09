@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="container listingOffsetTextColor">
+    <ng-container *ngFor="let order of orders">
+        <div class="ItemCardContainer">
+          <app-order-card [order]="order"> </app-order-card>
+        </div>
+    </ng-container>
+  </div>
+</div>

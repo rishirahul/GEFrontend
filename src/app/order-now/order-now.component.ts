@@ -69,7 +69,7 @@ export class OrderNowComponent implements OnInit {
     .subscribe(response => {
       console.log(response);
       alert('Order Placed Successfully');
-      this.router.navigate(['/products']);
+      this.router.navigate(['/myOrders']);
     }, (error: AppError) => {
       console.log(error);
       this.router.navigate(['/errorpage']);

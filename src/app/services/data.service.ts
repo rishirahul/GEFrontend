@@ -25,12 +25,13 @@ export class DataService {
     return this.http.post<any>(this.url, resource);
   }
 
-  upadate(resource) {
-    return this.http.put(this.url + '/' + resource.id, resource).pipe(catchError(this.handleError));
+  update(resource) {
+    console.log(resource);
+    return this.http.put(this.url + '/' + resource._id, resource).pipe(catchError(this.handleError));
   }
 
   deletePost(resource) {
-    return this.http.delete(this.url + '/' + resource.id).pipe(catchError(this.handleError));
+    return this.http.delete(this.url + '/' + resource._id).pipe(catchError(this.handleError));
   }
 
   private handleError(error: Response) {
