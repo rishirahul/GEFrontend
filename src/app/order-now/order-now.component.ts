@@ -4,6 +4,7 @@ import {ListingService} from '../services/listing.service';
 import { Listing } from './../model/listing';
 import { UserService } from '../services/user.service';
 import { OrderService } from '../services/order.service';
+import { PriceService } from '../services/price.service';
 import { AppError } from '../common/app-error';
 
 @Component({
@@ -16,8 +17,11 @@ export class OrderNowComponent implements OnInit {
   listing: Listing;
   address: any;
   userid: any;
+  price = 0;
+  priceValid = false;
   constructor(private listingService: ListingService, private userService: UserService,
-    private route: ActivatedRoute, private router: Router, private orderService: OrderService) { }
+    private route: ActivatedRoute, private router: Router, private orderService: OrderService,
+    private priceService: PriceService) { }
 
   ngOnInit() {
     this.route.paramMap
@@ -52,6 +56,30 @@ export class OrderNowComponent implements OnInit {
     });
   }
 
+  onQuantityChange(qty) {
+    const PriceData = {
+      qty: qty,
+      itemId: this.listing._id,
+      buyerId: this.userid,
+      sellerId: this.listing.seller._id
+    };
+    this.priceValid = false;
+    this.priceService.getPrice(PriceData)
+    .subscribe(Response => {
+      const priceValue = Response as any;
+      this.price = priceValue.price;
+      if (this.price < 0) {
+          this.price = 0;
+      } else {
+        this.priceValid = true;
+      }
+    }, (error: AppError) => {
+      console.log(error);
+      this.router.navigate(['/errorpage']);
+    });
+  }
+
+
   order(f) {
     const OrderData = {
       quantity: f.quantity,
@@ -64,6 +92,7 @@ export class OrderNowComponent implements OnInit {
       status: 'new'
 
     };
+
     console.log(OrderData);
     this.orderService.create(OrderData)
     .subscribe(response => {

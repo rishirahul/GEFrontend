@@ -14,4 +14,25 @@ export class OrderCardComponent implements OnInit {
     console.log(this.order);
   }
 
+  getOrderStatusNumber() {
+    if (this.order.status === 'new') {
+      return 1;
+    }
+    if (this.order.status === 'confirmed') {
+      return 2;
+    }
+    if (this.order.status === 'shipped') {
+      return 3;
+    }
+    if (this.order.status === 'delivered') {
+      return 4;
+    }
+  }
+  // setNewClasses() {
+  //   const classes = {
+  //     progtrckr-done: (this.getOrderStatusNumber() < 2),
+  //     progtrckr-todo: (this.getOrderStatusNumber() >= 2)
+  //   };
+  //   return classes;
+  // }
 }

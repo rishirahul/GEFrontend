@@ -18,6 +18,7 @@ import { CityService } from './services/city.service';
 import { StateService } from './services/state.service';
 import { UserService } from './services/user.service';
 import { AuthService } from './services/auth.service';
+import { PriceService } from './services/price.service';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { ListingCardComponent } from './listing-card/listing-card.component';
@@ -65,6 +66,7 @@ import { OrderCardComponent } from './order-card/order-card.component';
     CityService,
     UserService,
     AuthService,
+    PriceService,
     {provide: ErrorHandler, useClass: AppErrorHandler},
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
