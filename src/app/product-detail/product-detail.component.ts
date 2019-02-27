@@ -59,7 +59,8 @@ export class ProductDetailComponent implements OnInit {
       addressId: this.address._id,
       buyerId: this.userid,
       sellerId: this.listing.seller._id,
-      placedTime: Date.now().toString()
+      placedTime: Date.now().toString(),
+      status: 'new'
 
     };
     console.log(OrderData);
