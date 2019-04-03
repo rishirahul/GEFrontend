@@ -97,7 +97,7 @@ export class OrderNowComponent implements OnInit {
     this.orderService.create(OrderData)
     .subscribe(response => {
       console.log(response);
-      alert('Order Placed Successfully');
+      alert('Your order has been placed. It will be confirmed shortly.');
       this.router.navigate(['/myOrders']);
     }, (error: AppError) => {
       console.log(error);
