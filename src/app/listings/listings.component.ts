@@ -16,8 +16,7 @@ export class ListingsComponent implements OnInit {
   listings: any;
   itemNameList: Array<any> = [];
   cityList: Array<any> = [];
-  gradeList = ['A', 'B', 'C', 'D'];
-  grade = 'none';
+  gradeList = [{ name:'A', isSelected: false }, { name:'B', isSelected: false },{ name:'C', isSelected: false }, {name:'D', isSelected: false }];  grade = 'none';
   itemname: 'none';
   city: 'none';
   queryParams = '';
@@ -46,8 +45,6 @@ export class ListingsComponent implements OnInit {
         city['_id'] = cityListTemp[0][i]._id;
         city['isSelected'] = false;
         this.cityList.push(city); 
-        console.log(cityListTemp)
-
       }
       }, (error: Response) => {
       this.router.navigate(['/errorpage']);
@@ -77,11 +74,11 @@ export class ListingsComponent implements OnInit {
   }
 
   setGrade(grade) {
-    this.grade = grade;
+    this.grade = grade.name;
     if (this.queryParams == '') {
-      this.queryParams = '/?grade=' + grade;
+      this.queryParams = '/?grade=' + this.grade;
     } else {
-      this.queryParams = this.queryParams + '&grade=' + grade;
+      this.queryParams = this.queryParams + '&grade=' + this.grade;
     }
     console.log(this.queryParams);
     this.listingService.getAll(this.queryParams)
@@ -106,6 +103,9 @@ export class ListingsComponent implements OnInit {
       }
       for ( let city of this.cityList) {
         city.isSelected = false;
+      }
+      for ( let currentGrade of this.gradeList) {
+        currentGrade.isSelected = false;
       }
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
@@ -155,4 +155,6 @@ export class ListingsComponent implements OnInit {
       console.log(error);
     });
   }
+
+
 }
