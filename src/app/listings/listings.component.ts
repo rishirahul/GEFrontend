@@ -3,7 +3,8 @@ import {ListingService} from '../services/listing.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {CityService} from '../services/city.service';
 import {ItemnameService} from '../services/itemname.service';
-
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-listings',
@@ -13,8 +14,8 @@ import {ItemnameService} from '../services/itemname.service';
 
 export class ListingsComponent implements OnInit {
   listings: any;
-  itemNameList: any;
-  cityList: any;
+  itemNameList: Array<any> = [];
+  cityList: Array<any> = [];
   gradeList = ['A', 'B', 'C', 'D'];
   grade = 'none';
   itemname: 'none';
@@ -37,8 +38,18 @@ export class ListingsComponent implements OnInit {
 
     this.cityService.getAll()
     .subscribe(response => {
-      this.cityList = response;
-    }, (error: Response) => {
+      var cityListTemp = Array<any>(response);
+      console.log(response)
+      for (let i =0; i < cityListTemp[0].length; ++i)  {
+        var city = {};
+        city['name'] = cityListTemp[0][i].name;
+        city['_id'] = cityListTemp[0][i]._id;
+        city['isSelected'] = false;
+        this.cityList.push(city); 
+        console.log(cityListTemp)
+
+      }
+      }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
         alert(' expected error, post already deleted');
@@ -48,7 +59,14 @@ export class ListingsComponent implements OnInit {
 
     this.itemnameService.getAll()
     .subscribe(response => {
-      this.itemNameList = response;
+      var itemsList = Array<any>(response);
+      for (let i =0; i < itemsList.length; ++i)  {
+        var item1 = {};
+        item1['name'] = itemsList[i]['0'].name;
+        item1['_id'] = itemsList[i]['0']._id;
+        item1['isSelected'] = true;
+        this.itemNameList.push(item1); 
+      } 
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -83,6 +101,12 @@ export class ListingsComponent implements OnInit {
     this.listingService.getAll(this.queryParams)
     .subscribe(response => {
       this.listings = response;
+      for ( let item of this.itemNameList) {
+          item.isSelected = false;
+      }
+      for ( let city of this.cityList) {
+        city.isSelected = false;
+      }
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {

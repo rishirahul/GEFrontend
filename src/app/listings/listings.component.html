@@ -10,7 +10,8 @@
             <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
               <!-- Dropdown menu links -->
               <ng-container *ngFor="let itemname of itemNameList">
-                  <button ngbDropdownItem  class="btn btn-secondary btn-block " (click)="setItemName(itemname)"> {{itemname.name}} </button>
+                  <label>{{itemname.name}} <input type="checkbox" ng-model="itemname.isSelected" ng-checked="itemname.isSelected" (click)="setItemName(itemname)"></label><br/>
+                  <!-- <button ngbDropdownItem  class="btn btn-secondary btn-block " (click)="setItemName(itemname)"> {{itemname.name}} </button> -->
               </ng-container>
             </div>
           </div>
@@ -23,7 +24,8 @@
           <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
             <!-- Dropdown menu links -->
             <ng-container *ngFor="let city of cityList">
-                <button ngbDropdownItem  class="btn btn-secondary btn-block " (click)="setCity(city)"> {{city.name}} </button>
+                <label>{{city.name}} <input type="checkbox" ng-model="city.isSelected" (click)="setCity(city)"></label><br/>
+                <!-- <button ngbDropdownItem  class="btn btn-secondary btn-block " (click)="setCity(city)"> {{city.name}} </button> -->
             </ng-container>
           </div>
         </div>
@@ -36,7 +38,8 @@
         <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownBasic1">
           <!-- Dropdown menu links -->
           <ng-container *ngFor="let grade of gradeList">
-              <button ngbDropdownItem  class="btn btn-secondary btn-block " (click)="setGrade(grade)"> {{grade}} </button>
+              <label>{{grade}} <input type="checkbox" ng-model="gradeSelect" (click)="setGrade(grade)"></label><br/>
+              <!-- <button ngbDropdownItem  class="btn btn-secondary btn-block " (click)="setGrade(grade)"> {{grade}} </button> -->
           </ng-container>
         </div>
       </div>
