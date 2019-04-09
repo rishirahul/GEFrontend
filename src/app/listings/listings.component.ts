@@ -20,6 +20,7 @@ export class ListingsComponent implements OnInit {
   itemname: 'none';
   city: 'none';
   queryParams = '';
+  priceIsAscending:Boolean = true
   constructor(private listingService: ListingService, private cityService: CityService,
     private itemnameService: ItemnameService, private router: Router) { }
 
@@ -61,7 +62,7 @@ export class ListingsComponent implements OnInit {
         var item1 = {};
         item1['name'] = itemsList[i]['0'].name;
         item1['_id'] = itemsList[i]['0']._id;
-        item1['isSelected'] = true;
+        item1['isSelected'] = false;
         this.itemNameList.push(item1); 
       } 
     }, (error: Response) => {
@@ -79,6 +80,25 @@ export class ListingsComponent implements OnInit {
       this.queryParams = '/?grade=' + this.grade;
     } else {
       this.queryParams = this.queryParams + '&grade=' + this.grade;
+    }
+    console.log(this.queryParams);
+    this.listingService.getAll(this.queryParams)
+    .subscribe(response => {
+      this.listings = response;
+    }, (error: Response) => {
+      this.router.navigate(['/errorpage']);
+      if (error.status === 400) {
+        alert(' expected error, post already deleted');
+      }
+      console.log(error);
+    });
+  }
+  sortByPrice() {
+    this.priceIsAscending = !this.priceIsAscending
+    if (this.queryParams == '') {
+      this.queryParams = '/?price=' + (this.priceIsAscending == true? '1':'0');
+    } else {
+      this.queryParams = this.queryParams +'/?price=' + (this.priceIsAscending == true? '1':'0');
     }
     console.log(this.queryParams);
     this.listingService.getAll(this.queryParams)
