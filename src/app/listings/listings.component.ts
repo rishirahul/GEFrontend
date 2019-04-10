@@ -21,6 +21,10 @@ export class ListingsComponent implements OnInit {
   city: 'none';
   queryParams = '';
   priceIsAscending:Boolean = true
+  cityQueryParams = ''
+  gradeQueryParams = ''
+  itemQueryParams = ''
+  firstTimeLoad:Boolean = true 
   constructor(private listingService: ListingService, private cityService: CityService,
     private itemnameService: ItemnameService, private router: Router) { }
 
@@ -75,94 +79,47 @@ export class ListingsComponent implements OnInit {
   }
 
   setGrade(grade) {
-    this.grade = grade.name;
-    if (this.queryParams == '') {
-      this.queryParams = '/?grade=' + this.grade;
-    } else {
-      this.queryParams = this.queryParams + '&grade=' + this.grade;
-    }
-    console.log(this.queryParams);
-    this.listingService.getAll(this.queryParams)
-    .subscribe(response => {
-      this.listings = response;
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
+    for ( let currentGrade of this.gradeList) {
+      if (currentGrade.name == grade.name) {
+        currentGrade.isSelected = !currentGrade.isSelected;
       }
-      console.log(error);
-    });
+    }
+    this.makeQuery()
+    this.callListings()
   }
+
   sortByPrice() {
     this.priceIsAscending = !this.priceIsAscending
-    if (this.queryParams == '') {
-      this.queryParams = '/?price=' + (this.priceIsAscending == true? '1':'0');
-    } else {
-      this.queryParams = this.queryParams +'/?price=' + (this.priceIsAscending == true? '1':'0');
-    }
-    console.log(this.queryParams);
-    this.listingService.getAll(this.queryParams)
-    .subscribe(response => {
-      this.listings = response;
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    });
+    this.makeQuery()
+    this.callListings()
   }
 
   clearSelection() {
     this.queryParams = '';
-    this.listingService.getAll(this.queryParams)
-    .subscribe(response => {
-      this.listings = response;
-      for ( let item of this.itemNameList) {
-          item.isSelected = false;
-      }
-      for ( let city of this.cityList) {
-        city.isSelected = false;
-      }
-      for ( let currentGrade of this.gradeList) {
-        currentGrade.isSelected = false;
-      }
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    });
+    this.callListings()
   }
 
   setCity(city) {
-    this.city = city._id;
-    if (this.queryParams == '') {
-      this.queryParams = '/?origin=' + this.city;
-    } else {
-      this.queryParams =this.queryParams + '&origin=' + this.city;
-    }
-    console.log(this.queryParams);
-    this.listingService.getAll(this.queryParams)
-    .subscribe(response => {
-      this.listings = response;
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
+    for ( let currentCity of this.cityList) {
+      if (currentCity._id == city._id) {
+        currentCity.isSelected = !currentCity.isSelected;
       }
-      console.log(error);
-    });
+    }
+    this.makeQuery()
+    this.callListings()
   }
 
   setItemName(itemname) {
-    this.itemname = itemname._id;
-    if (this.queryParams == '') {
-      this.queryParams = '/?name=' + this.itemname;
-    } else {
-      this.queryParams = this.queryParams + '&name=' + this.itemname;
+    for ( let currentItem of this.itemNameList) {
+      if (currentItem.name == itemname.name) {
+        currentItem.isSelected = !currentItem.isSelected;
+      }
     }
+    this.makeQuery()
+    this.callListings()
+  }
+
+  callListings(){
     console.log(this.queryParams);
     this.listingService.getAll(this.queryParams)
     .subscribe(response => {
@@ -176,5 +133,61 @@ export class ListingsComponent implements OnInit {
     });
   }
 
+  makeQuery() {
+    this.queryParams = '';
+    this.itemQueryParams = ''
+    this.cityQueryParams = ''
+    this.gradeQueryParams = ''
 
+    for ( let currentItem of this.itemNameList) {
+      if (currentItem.isSelected) {
+        if (this.queryParams == '') {
+          this.queryParams = '/?name=' + currentItem.name;;
+        }
+        else {
+          this.itemQueryParams = this.itemQueryParams + '&name=' + currentItem.name;
+        }
+      }
+    }
+    for ( let currentCity of this.cityList) {
+      if (currentCity.isSelected) {
+        if (this.queryParams == '') {
+          this.queryParams = '/?origin=' + currentCity._id;
+        }
+        else {
+          this.cityQueryParams = this.cityQueryParams + '&origin=' + currentCity._id;
+        }
+      }
+    }
+    for ( let currentGrade of this.gradeList) {
+      if (currentGrade.isSelected) {
+        if (this.queryParams == '') {
+          this.queryParams = '/?grade=' + currentGrade.name;
+        }
+        else {
+          this.gradeQueryParams = this.gradeQueryParams + '&grade=' + currentGrade.name;
+        }
+      }
+    }
+    this.queryParams = this.queryParams + this.cityQueryParams + this.gradeQueryParams + this.itemQueryParams;
+    if (this.queryParams == '') {
+      this.queryParams = '/?price=' + (this.priceIsAscending == true? 'asc':'desc');
+    } else {
+      this.queryParams = this.queryParams +'&price=' + (this.priceIsAscending == true? 'asc':'desc');
+    }
+  }
+
+  deselectAllFilters() {
+    for ( let item of this.itemNameList) {
+      item.isSelected = false;
+    }
+    for ( let city of this.cityList) {
+     city.isSelected = false;
+    }
+    for ( let currentGrade of this.gradeList) {
+      currentGrade.isSelected = false;
+    }
+    this.priceIsAscending = true;
+  }
 }
+
