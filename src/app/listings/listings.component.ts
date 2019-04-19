@@ -142,10 +142,10 @@ export class ListingsComponent implements OnInit {
     for ( let currentItem of this.itemNameList) {
       if (currentItem.isSelected) {
         if (this.queryParams == '') {
-          this.queryParams = '/?name=' + currentItem.name;;
+          this.queryParams = '/?name=' + currentItem._id;;
         }
         else {
-          this.itemQueryParams = this.itemQueryParams + '&name=' + currentItem.name;
+          this.itemQueryParams = this.itemQueryParams + '&name=' + currentItem._id;
         }
       }
     }
