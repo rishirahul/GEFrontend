@@ -96,6 +96,7 @@ export class ListingsComponent implements OnInit {
 
   clearSelection() {
     this.queryParams = '';
+    this.deselectAllFilters()
     this.callListings()
   }
 
