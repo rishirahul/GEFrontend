@@ -3,7 +3,8 @@ import {ListingService} from '../services/listing.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {CityService} from '../services/city.service';
 import {ItemnameService} from '../services/itemname.service';
-
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-listings',
@@ -13,13 +14,17 @@ import {ItemnameService} from '../services/itemname.service';
 
 export class ListingsComponent implements OnInit {
   listings: any;
-  itemNameList: any;
-  cityList: any;
-  gradeList = ['A', 'B', 'C', 'D'];
-  grade = 'none';
+  itemNameList: Array<any> = [];
+  cityList: Array<any> = [];
+  gradeList = [{ name:'A', isSelected: false }, { name:'B', isSelected: false },{ name:'C', isSelected: false }, {name:'D', isSelected: false }];  grade = 'none';
   itemname: 'none';
   city: 'none';
   queryParams = '';
+  priceIsAscending:Boolean = true
+  cityQueryParams = ''
+  gradeQueryParams = ''
+  itemQueryParams = ''
+  firstTimeLoad:Boolean = true 
   constructor(private listingService: ListingService, private cityService: CityService,
     private itemnameService: ItemnameService, private router: Router) { }
 
@@ -37,8 +42,16 @@ export class ListingsComponent implements OnInit {
 
     this.cityService.getAll()
     .subscribe(response => {
-      this.cityList = response;
-    }, (error: Response) => {
+      var cityListTemp = Array<any>(response);
+      console.log(response)
+      for (let i =0; i < cityListTemp[0].length; ++i)  {
+        var city = {};
+        city['name'] = cityListTemp[0][i].name;
+        city['_id'] = cityListTemp[0][i]._id;
+        city['isSelected'] = false;
+        this.cityList.push(city); 
+      }
+      }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
         alert(' expected error, post already deleted');
@@ -48,7 +61,14 @@ export class ListingsComponent implements OnInit {
 
     this.itemnameService.getAll()
     .subscribe(response => {
-      this.itemNameList = response;
+      var itemsList = Array<any>(response);
+      for (let i =0; i < itemsList.length; ++i)  {
+        var item1 = {};
+        item1['name'] = itemsList[i]['0'].name;
+        item1['_id'] = itemsList[i]['0']._id;
+        item1['isSelected'] = false;
+        this.itemNameList.push(item1); 
+      } 
     }, (error: Response) => {
       this.router.navigate(['/errorpage']);
       if (error.status === 400) {
@@ -59,46 +79,47 @@ export class ListingsComponent implements OnInit {
   }
 
   setGrade(grade) {
-    this.grade = grade;
-    if (this.queryParams == '') {
-      this.queryParams = '/?grade=' + grade;
-    } else {
-      this.queryParams = this.queryParams + '&grade=' + grade;
-    }
-    console.log(this.queryParams);
-    this.listingService.getAll(this.queryParams)
-    .subscribe(response => {
-      this.listings = response;
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
+    for ( let currentGrade of this.gradeList) {
+      if (currentGrade.name == grade.name) {
+        currentGrade.isSelected = !currentGrade.isSelected;
       }
-      console.log(error);
-    });
+    }
+    this.makeQuery()
+    this.callListings()
+  }
+
+  sortByPrice() {
+    this.priceIsAscending = !this.priceIsAscending
+    this.makeQuery()
+    this.callListings()
   }
 
   clearSelection() {
     this.queryParams = '';
-    this.listingService.getAll(this.queryParams)
-    .subscribe(response => {
-      this.listings = response;
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
-      }
-      console.log(error);
-    });
+    this.callListings()
   }
 
   setCity(city) {
-    this.city = city._id;
-    if (this.queryParams == '') {
-      this.queryParams = '/?origin=' + this.city;
-    } else {
-      this.queryParams =this.queryParams + '&origin=' + this.city;
+    for ( let currentCity of this.cityList) {
+      if (currentCity._id == city._id) {
+        currentCity.isSelected = !currentCity.isSelected;
+      }
     }
+    this.makeQuery()
+    this.callListings()
+  }
+
+  setItemName(itemname) {
+    for ( let currentItem of this.itemNameList) {
+      if (currentItem.name == itemname.name) {
+        currentItem.isSelected = !currentItem.isSelected;
+      }
+    }
+    this.makeQuery()
+    this.callListings()
+  }
+
+  callListings(){
     console.log(this.queryParams);
     this.listingService.getAll(this.queryParams)
     .subscribe(response => {
@@ -112,23 +133,61 @@ export class ListingsComponent implements OnInit {
     });
   }
 
-  setItemName(itemname) {
-    this.itemname = itemname._id;
-    if (this.queryParams == '') {
-      this.queryParams = '/?name=' + this.itemname;
-    } else {
-      this.queryParams = this.queryParams + '&name=' + this.itemname;
-    }
-    console.log(this.queryParams);
-    this.listingService.getAll(this.queryParams)
-    .subscribe(response => {
-      this.listings = response;
-    }, (error: Response) => {
-      this.router.navigate(['/errorpage']);
-      if (error.status === 400) {
-        alert(' expected error, post already deleted');
+  makeQuery() {
+    this.queryParams = '';
+    this.itemQueryParams = ''
+    this.cityQueryParams = ''
+    this.gradeQueryParams = ''
+
+    for ( let currentItem of this.itemNameList) {
+      if (currentItem.isSelected) {
+        if (this.queryParams == '') {
+          this.queryParams = '/?name=' + currentItem._id;;
+        }
+        else {
+          this.itemQueryParams = this.itemQueryParams + '&name=' + currentItem._id;
+        }
       }
-      console.log(error);
-    });
+    }
+    for ( let currentCity of this.cityList) {
+      if (currentCity.isSelected) {
+        if (this.queryParams == '') {
+          this.queryParams = '/?origin=' + currentCity._id;
+        }
+        else {
+          this.cityQueryParams = this.cityQueryParams + '&origin=' + currentCity._id;
+        }
+      }
+    }
+    for ( let currentGrade of this.gradeList) {
+      if (currentGrade.isSelected) {
+        if (this.queryParams == '') {
+          this.queryParams = '/?grade=' + currentGrade.name;
+        }
+        else {
+          this.gradeQueryParams = this.gradeQueryParams + '&grade=' + currentGrade.name;
+        }
+      }
+    }
+    this.queryParams = this.queryParams + this.cityQueryParams + this.gradeQueryParams + this.itemQueryParams;
+    if (this.queryParams == '') {
+      this.queryParams = '/?price=' + (this.priceIsAscending == true? 'asc':'desc');
+    } else {
+      this.queryParams = this.queryParams +'&price=' + (this.priceIsAscending == true? 'asc':'desc');
+    }
+  }
+
+  deselectAllFilters() {
+    for ( let item of this.itemNameList) {
+      item.isSelected = false;
+    }
+    for ( let city of this.cityList) {
+     city.isSelected = false;
+    }
+    for ( let currentGrade of this.gradeList) {
+      currentGrade.isSelected = false;
+    }
+    this.priceIsAscending = true;
   }
 }
+
